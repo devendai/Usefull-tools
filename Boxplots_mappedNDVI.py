@@ -2,13 +2,13 @@
 Date: 3/8/2019
 Author: Devendra Dahal
 Update: 
-Description: This script is developed to validate predicted NDVI by computing stats and plotting 
-			boxplots by landcover classes for each week. This is part of quality controling.
+Description: This script is developed to validate predicted NDVI by computing stats and plotting weekly boxplots by landcover
+		classes (forest and rangeland) from NLCD. This is part of quality controlling of model output.
 USAGE: 
 '''
 
 import ProjRaster as prs
-import utility_27 as util
+import utilities as util
 import os, sys , time, datetime
 from glob import glob
 import numpy as np
@@ -111,7 +111,7 @@ def CalcAll(inFolder, NLCDDir, OutputFolder):
 			
 			FigDir = OutputFolder.replace('Datas','Figures')
 			# outFile = FigDir + os.sep + tileName+'_'+str(Year) +'_InterpolatedNDVI_boxplot.png'
-			outFile = FigDir + os.sep + tileName+'_'+str(Year) +'_InterpolatedNDVI_boxplot.png'
+			outFile = FigDir + os.sep + tileName+'_'+str(Year) +'_PredictedNDVI_boxplot.png'
 			if not os.path.exists(outFile):
 				
 				ListRasAll_Fill = sorted(glob(tile +os.sep+ "*new*.tif"))
@@ -203,8 +203,8 @@ def CalcAll(inFolder, NLCDDir, OutputFolder):
 				ax.legend(loc='upper right')
 				ax.set_xticklabels(range(7,41), rotation =45)
 				ax.set(xlabel='Weeks',ylabel='NDVI')
-				ax.set_title('Interpolated (gap-filled) NDVI for '+tileName+' '+ Year)
-				# ax.set_title('Predicted NDVI for '+tileName+' '+ Year)
+				# ax.set_title('Interpolated (gap-filled) NDVI for '+tileName+' '+ Year)
+				ax.set_title('Predicted NDVI for '+tileName+' '+ Year)
 				ax.figure.savefig(outFile)
 				plt.close()
 				# ax.close()
