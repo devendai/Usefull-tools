@@ -7,7 +7,6 @@ Description: This script is developed to validate predicted NDVI by computing st
 USAGE: 
 '''
 
-import ProjRaster as prs
 import utilities as util
 import os, sys , time, datetime
 from glob import glob
