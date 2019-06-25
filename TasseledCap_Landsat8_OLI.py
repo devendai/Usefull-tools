@@ -1,7 +1,7 @@
 def tasseled_cap(in_ds,  rows, cols, j, i):
 
 		"""
-    Function to calculate Tasseled cap for Landsat 8 (OLI) using numpy array blocks.
+    		Function to calculate Tasseled cap for Landsat 8 (OLI) using numpy array blocks.
     
 		Ali Baig, Muhammad Asad et al. (2014). Derivation of a tasselled cap transformation based on Landsat 8
 			at-satellite reflectance. Remote Sensing Letters 5(5):423-431.
