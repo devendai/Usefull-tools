@@ -1,8 +1,8 @@
 '''
 Date: 3/16/2019
 Author: Devendra Dahal
-Description: This is python utility script, which has all of the small function for various
-	task needed. This is especially designed for cloud masking task but can be used for other propose 
+Description: This is python utility script, which has many usefull functions for various tasks. This is especially designed
+	for weekly NDVI 30m mapping project using Harmonized Landsat and Sentinels datasets but can be used for other propose 
 	wherever the functions are useful. 
 USAGE: 
 
@@ -76,7 +76,7 @@ def stsCalc(fList,OutFile, sts):
 	ds1 	= gdal.Open(fList[0])
 	xsize, ysize, gT, prj, dType, bnds = GetGeoInfo(ds1)
 	
-	dsOut = tifDriver.Create(OutFile, xsize, ysize, 1, gdal.GDT_Byte)
+	dsOut = tifDriver.Create(OutFile, xsize, ysize, 1, gdal.GDT_Byte,options = [ 'COMPRESS=DEFLATE' ])
 	gdal_array.CopyDatasetInfo(ds1,dsOut)
 	# bandOut=dsOut.GetRasterBand(1)
 	ds1 = None
@@ -141,7 +141,7 @@ def MergeRaster(fList,OutFile):
 	ds1 	= gdal.Open(fList[0])
 	xsize, ysize, gT, prj, dType, bnds = GetGeoInfo(ds1)
 	
-	dsOut = tifDriver.Create(OutFile, xsize, ysize, num, dType)
+	dsOut = tifDriver.Create(OutFile, xsize, ysize, num, dType, options = [ 'COMPRESS=DEFLATE' ])
 	gdal_array.CopyDatasetInfo(ds1,dsOut)
 	# bandOut=dsOut.GetRasterBand(1)
 	ds1 = None
@@ -549,7 +549,7 @@ def columnJoin(inCsv1, inCsv2):
 	OutCsv.to_csv(inCsv1, sep = ',',index=False)
 
 def RasterSave(CArray,OutFile,cMap,co, ro,bnd):
-	dsOut = tifDriver.Create(OutFile, co, ro, bnd, gdal.GDT_Byte)
+	dsOut = tifDriver.Create(OutFile, co, ro, bnd, gdal.GDT_Byte, options = [ 'COMPRESS=DEFLATE' ])
 	CopyDatasetInfo(cMap,dsOut)
 	bandOut=dsOut.GetRasterBand(bnd)
 	BandWriteArray(bandOut, CArray)
@@ -569,7 +569,7 @@ def LayerMask(inFile,Mask,outds,ND):
 	inM = inMask.ReadAsArray(0,0,cl,rs)
 	
 	driver = gdal.GetDriverByName("GTiff")
-	dst_ds = driver.Create(outds, cl, rs, bnds, DataType)
+	dst_ds = driver.Create(outds, cl, rs, bnds, DataType, options = [ 'COMPRESS=DEFLATE' ])
 	dst_ds.SetGeoTransform(geot)
 	dst_ds.SetProjection(proj)
 	
