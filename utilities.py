@@ -606,3 +606,24 @@ def LayerMask1(inFile,Mask):
 	
 	outName = inFile.replace('cNDVI','masked_NDVI')
 	RasterSave(cfMask,outName,inFile,cl, rs)
+
+def SubsetBands(inFile,outds,bndlist):
+	
+	''' Subsetting bands from multiband raster layer,
+	one or multiple bands can be saved, need to provide list of bands.'''
+	ds1 	= gdal.Open(inFile)
+	
+	cl, rs, geot, proj, DataType, bnds = GetGeoInfo(ds1)
+	inLayer = ds1.GetRasterBand(1)
+	
+	driver = gdal.GetDriverByName("GTiff")
+	dst_ds = driver.Create(outds, cl, rs, len(bndlist), DataType, options = [ 'COMPRESS=DEFLATE' ])
+	dst_ds.SetGeoTransform(geot)
+	dst_ds.SetProjection(proj)
+	
+	for i, ba in enumerate(bndlist):
+		
+		band = ds1.GetRasterBand(ba) # 1-based index
+		inL = band.ReadAsArray(0, 0, cl, rs) #.astype(Int)
+		dst_ds.GetRasterBand(i+1).WriteArray(inL)
+	inL=None
