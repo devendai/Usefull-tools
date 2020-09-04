@@ -2,7 +2,7 @@
 Date: 9/4/2020
 Author: Devendra Dahal
 Update:
-Description: Develop xgboost classifier model reading a large datafile. Write model accuracy results 
+Description: Develop xgboost regressor model reading a large datafile. Write model accuracy results 
 	in a text file and also save the model as pkl file.
 USAGE: 
 '''
