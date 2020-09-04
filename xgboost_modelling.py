@@ -9,10 +9,9 @@ USAGE:
 import os,sys,traceback, datetime,time, itertools,random, math
 import numpy as np
 import pandas as pd
-from sklearn.model_selection import KFold, GridSearchCV
+from sklearn.model_selection import KFold, GridSearchCV, train_test_split
 from sklearn.metrics import confusion_matrix, mean_squared_error
 from sklearn import metrics
-from sklearn.model_selection import train_test_split
 from sklearn.externals import joblib
 import xgboost as xgb
 import pickle
